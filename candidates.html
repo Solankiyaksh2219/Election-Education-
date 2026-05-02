@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about candidates, political parties, symbols, and the nomination process in Indian elections.">
+  <title>Candidates & Parties — Election Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .topics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px,1fr)); gap: 24px; }
+    .topic-card { background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-lg); padding: 28px; transition: var(--transition-smooth); }
+    .topic-card:hover { background: var(--bg-card-hover); transform: translateY(-4px); box-shadow: var(--shadow-card); }
+    .topic-card .topic-icon { font-size: 2rem; margin-bottom: 14px; }
+    .topic-card h3 { margin-bottom: 10px; font-size: 1.15rem; }
+    .topic-card p { font-size: 0.93rem; line-height: 1.7; }
+    .topic-card ul { margin-top: 12px; padding-left: 0; list-style: none; }
+    .topic-card ul li { padding: 6px 0; font-size: 0.92rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 8px; }
+    .topic-card ul li::before { content: '→'; color: var(--accent-blue); font-weight: 700; flex-shrink: 0; }
+
+    .symbol-gallery { margin-top: 40px; }
+    .symbol-gallery h3 { text-align: center; margin-bottom: 24px; }
+    .symbols-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 16px; }
+    .symbol-item { text-align: center; padding: 20px 12px; background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-md); transition: var(--transition-smooth); cursor: default; }
+    .symbol-item:hover { background: var(--bg-card-hover); transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: rgba(255,255,255,0.15); }
+    .symbol-item .sym-icon { font-size: 2.2rem; margin-bottom: 8px; display: block; }
+    .symbol-item .sym-name { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
+    .symbol-item .sym-party { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+    .comparison-table { margin-top: 40px; overflow-x: auto; }
+    .comparison-table h3 { text-align: center; margin-bottom: 24px; }
+    .comp-table { width: 100%; border-collapse: collapse; background: var(--bg-glass); border-radius: var(--radius-lg); overflow: hidden; }
+    .comp-table th, .comp-table td { padding: 14px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .comp-table th { background: rgba(59,130,246,0.1); color: var(--accent-blue); font-size: 0.88rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .comp-table td { font-size: 0.92rem; color: var(--text-secondary); }
+    .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .comp-table tr:last-child td { border-bottom: none; }
+
+    .infographic { max-width: 700px; margin: 40px auto 0; background: linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08)); border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius-xl); padding: 36px; text-align: center; }
+    .infographic h3 { margin-bottom: 6px; }
+    .infographic .sub { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 24px; }
+    .infographic-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+    .info-step { padding: 16px 20px; background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-md); min-width: 130px; }
+    .info-step .num { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; background: var(--gradient-blue-violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .info-step .lbl { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+
+    @media (max-width:768px) { .topics-grid { grid-template-columns: 1fr; } .symbols-grid { grid-template-columns: repeat(3,1fr); } .infographic-steps { flex-direction: column; align-items: center; } }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <section class="page-hero">
+      <div class="container">
+        <span class="section-label">Understanding Democracy</span>
+        <h1>🏛️ <span class="gradient-text">Candidates & Parties</span></h1>
+        <p>Learn how candidates are nominated, how parties work, and what symbols represent.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="topics-grid">
+          <div class="topic-card reveal">
+            <div class="topic-icon">📋</div>
+            <h3>How Candidates Are Nominated</h3>
+            <p>The nomination process is a crucial step in elections:</p>
+            <ul>
+              <li>A person must be a citizen of India and at least 25 years old (Lok Sabha) or 30 years old (Rajya Sabha)</li>
+              <li>Candidates file nomination papers with the Returning Officer</li>
+              <li>They must deposit ₹25,000 (₹12,500 for SC/ST candidates)</li>
+              <li>At least one registered voter must propose the candidate</li>
+              <li>Candidates must declare criminal cases, assets, and education</li>
+            </ul>
+          </div>
+          <div class="topic-card reveal">
+            <div class="topic-icon">🏢</div>
+            <h3>Role of Political Parties</h3>
+            <p>Political parties are the backbone of representative democracy:</p>
+            <ul>
+              <li>Parties select and field candidates for elections</li>
+              <li>They create manifestos outlining policies and promises</li>
+              <li>Parties campaign on behalf of their candidates</li>
+              <li>In Parliament, they form the ruling party or opposition</li>
+              <li>Parties must be registered with the Election Commission</li>
+            </ul>
+          </div>
+          <div class="topic-card reveal">
+            <div class="topic-icon">🏅</div>
+            <h3>National vs Regional Parties</h3>
+            <p>India recognizes different categories of parties:</p>
+            <ul>
+              <li><strong>National Party:</strong> Must secure 6% votes in 4+ states OR win 2% Lok Sabha seats from 3+ states</li>
+              <li><strong>State Party:</strong> Must secure 6% votes and win 2 seats in a state assembly election</li>
+              <li><strong>Registered Unrecognized:</strong> Registered but don't meet national/state criteria</li>
+              <li>Currently India has 6 national parties and 50+ state parties</li>
+            </ul>
+          </div>
+          <div class="topic-card reveal">
+            <div class="topic-icon">👤</div>
+            <h3>Independent Candidates</h3>
+            <p>You don't need a party to contest elections:</p>
+            <ul>
+              <li>Any eligible citizen can contest as an independent candidate</li>
+              <li>Must be proposed by 10 registered voters of the constituency</li>
+              <li>The ECI assigns a unique "free symbol" from its reserved list</li>
+              <li>Independents have won and become ministers in the past</li>
+              <li>No party support means self-funded campaigns</li>
+            </ul>
+          </div>
+          <div class="topic-card reveal">
+            <div class="topic-icon">🤝</div>
+            <h3>Coalitions & Alliances</h3>
+            <p>When no single party wins a majority, coalitions form:</p>
+            <ul>
+              <li>Pre-election alliances: Parties agree to share seats before elections</li>
+              <li>Post-election alliances: Formed after results to reach the majority mark</li>
+              <li>A coalition needs 272+ seats to form government at the center</li>
+              <li>Common Minimum Programme binds coalition partners</li>
+            </ul>
+          </div>
+          <div class="topic-card reveal">
+            <div class="topic-icon">⚖️</div>
+            <h3>Anti-Defection Law</h3>
+            <p>Protects the stability of elected governments:</p>
+            <ul>
+              <li>Enacted in 1985 under the 52nd Amendment (10th Schedule)</li>
+              <li>An elected member is disqualified if they voluntarily leave their party</li>
+              <li>Voting against the party whip leads to disqualification</li>
+              <li>Exception: If 2/3 of the party's legislators agree to merge</li>
+              <li>Speaker of the House decides on disqualification petitions</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- PARTY SYMBOLS -->
+        <div class="symbol-gallery reveal">
+          <span class="section-label" style="display:flex;justify-content:center;">Party Symbols</span>
+          <h3>Recognizing Parties by Their Symbols</h3>
+          <p class="text-center mb-3" style="color:var(--text-muted);font-size:0.92rem;">Party symbols help voters identify candidates on the EVM, especially in areas with low literacy.</p>
+          <div class="symbols-grid">
+            <div class="symbol-item"><span class="sym-icon">🪷</span><span class="sym-name">Lotus</span><span class="sym-party">National Party</span></div>
+            <div class="symbol-item"><span class="sym-icon">✋</span><span class="sym-name">Hand</span><span class="sym-party">National Party</span></div>
+            <div class="symbol-item"><span class="sym-icon">🔔</span><span class="sym-name">Bell</span><span class="sym-party">State Party</span></div>
+            <div class="symbol-item"><span class="sym-icon">🌾</span><span class="sym-name">Grain Stalk</span><span class="sym-party">State Party</span></div>
+            <div class="symbol-item"><span class="sym-icon">🚲</span><span class="sym-name">Bicycle</span><span class="sym-party">State Party</span></div>
+            <div class="symbol-item"><span class="sym-icon">⏰</span><span class="sym-name">Clock</span><span class="sym-party">National Party</span></div>
+            <div class="symbol-item"><span class="sym-icon">🏹</span><span class="sym-name">Bow & Arrow</span><span class="sym-party">State Party</span></div>
+            <div class="symbol-item"><span class="sym-icon">🌻</span><span class="sym-name">Sunflower</span><span class="sym-party">State Party</span></div>
+          </div>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="comparison-table reveal">
+          <span class="section-label" style="display:flex;justify-content:center;">Quick Comparison</span>
+          <h3>National vs State vs Independent</h3>
+          <table class="comp-table">
+            <thead><tr><th>Aspect</th><th>National Party</th><th>State Party</th><th>Independent</th></tr></thead>
+            <tbody>
+              <tr><td>Symbol</td><td>Reserved across India</td><td>Reserved in the state</td><td>Assigned by ECI</td></tr>
+              <tr><td>Free TV/Radio Time</td><td>Yes (Doordarshan/AIR)</td><td>Yes (in state)</td><td>No</td></tr>
+              <tr><td>Star Campaigner Limit</td><td>40</td><td>20</td><td>None</td></tr>
+              <tr><td>Election Expense</td><td>Party funded</td><td>Party funded</td><td>Self funded</td></tr>
+              <tr><td>Proposers Required</td><td>1 registered voter</td><td>1 registered voter</td><td>10 registered voters</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- INFOGRAPHIC -->
+        <div class="infographic reveal">
+          <h3>🇮🇳 India's Party System at a Glance</h3>
+          <p class="sub">Numbers that define the world's largest democracy</p>
+          <div class="infographic-steps">
+            <div class="info-step"><div class="num">6</div><div class="lbl">National Parties</div></div>
+            <div class="info-step"><div class="num">54</div><div class="lbl">State Parties</div></div>
+            <div class="info-step"><div class="num">2500+</div><div class="lbl">Registered Parties</div></div>
+            <div class="info-step"><div class="num">543</div><div class="lbl">Lok Sabha Seats</div></div>
+            <div class="info-step"><div class="num">272</div><div class="lbl">Majority Mark</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="nav.js"></script>
+</body>
+</html>

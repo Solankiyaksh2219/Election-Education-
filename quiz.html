@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test your knowledge about the Indian election process with our interactive quiz.">
+  <title>Election Quiz — Election Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .quiz-container { max-width: 800px; margin: 0 auto; background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-xl); padding: 40px; box-shadow: var(--shadow-card); }
+    .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .quiz-stats { display: flex; gap: 20px; font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; }
+    .stat-item span { color: var(--accent-blue); }
+    .question-box { margin-bottom: 30px; animation: fadeIn 0.5s ease; }
+    .question-box h2 { font-size: 1.4rem; margin-bottom: 20px; line-height: 1.4; }
+    .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .option-btn { padding: 16px 20px; background: rgba(255,255,255,0.05); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-md); text-align: left; font-size: 1rem; color: var(--text-primary); cursor: pointer; transition: var(--transition-fast); position: relative; overflow: hidden; }
+    .option-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+    .option-btn.correct { background: rgba(16, 185, 129, 0.2); border-color: var(--accent-emerald); color: white; }
+    .option-btn.wrong { background: rgba(244, 63, 94, 0.2); border-color: var(--accent-rose); color: white; }
+    .feedback { margin-top: 20px; padding: 16px; border-radius: var(--radius-md); font-size: 0.95rem; display: none; animation: slideIn 0.3s ease; }
+    .feedback.visible { display: block; }
+    .feedback.correct { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .feedback.wrong { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); color: #fda4af; }
+    .quiz-footer { display: flex; justify-content: flex-end; margin-top: 30px; }
+    .result-screen { text-align: center; display: none; animation: fadeIn 0.8s ease; }
+    .result-score { font-size: 4rem; font-weight: 800; margin: 20px 0; background: var(--gradient-blue-violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .result-rank { font-size: 1.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 20px; }
+    .result-actions { display: flex; gap: 16px; justify-content: center; margin-top: 30px; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width:768px) { .quiz-container { padding: 25px; } .question-box h2 { font-size: 1.2rem; } }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <section class="page-hero">
+      <div class="container">
+        <span class="section-label">Knowledge Challenge</span>
+        <h1>📝 <span class="gradient-text">Election Quiz</span></h1>
+        <p>Test your knowledge about the world's largest democratic process.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="quiz-container" id="quizApp">
+          <div id="quizScreen">
+            <div class="quiz-header">
+              <div class="quiz-stats">
+                <div class="stat-item">Question: <span id="qNum">1</span>/15</div>
+                <div class="stat-item">Score: <span id="score">0</span></div>
+              </div>
+              <div id="timer" style="color:var(--text-muted);font-size:0.85rem;">Time spent: <span id="time">00:00</span></div>
+            </div>
+            <div class="question-box">
+              <h2 id="questionText">Loading question...</h2>
+              <div class="options-grid" id="optionsGrid"></div>
+              <div id="feedback" class="feedback"></div>
+            </div>
+            <div class="quiz-footer">
+              <button id="nextBtn" class="btn btn-primary" style="display:none;">Next Question →</button>
+            </div>
+          </div>
+
+          <div id="resultScreen" class="result-screen">
+            <h2>Quiz Completed!</h2>
+            <div class="result-score" id="finalScore">0/15</div>
+            <div class="result-rank" id="resultRank">Election Novice</div>
+            <p id="resultText">You're starting to understand the democratic process. Keep learning!</p>
+            <div class="result-actions">
+              <button onclick="location.reload()" class="btn btn-primary">Try Again</button>
+              <a href="index.html" class="btn btn-secondary">Back to Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    const questions = [
+      { q: "What is the minimum age required to vote in India?", a: ["16 years", "18 years", "21 years", "25 years"], correct: 1, fact: "The voting age was lowered from 21 to 18 by the 61st Amendment Act in 1988." },
+      { q: "Which body is responsible for conducting elections in India?", a: ["Supreme Court", "Parliament", "Election Commission of India", "Ministry of Home Affairs"], correct: 2, fact: "The Election Commission is an autonomous constitutional body established on Jan 25, 1950." },
+      { q: "What does EVM stand for?", a: ["Electronic Voter Machine", "Electronic Voting Method", "Electronic Voting Machine", "Elective Voter Management"], correct: 2, fact: "EVMs were first used in Kerala in 1982 on an experimental basis." },
+      { q: "What is the maximum number of votes an EVM can record?", a: ["1,000", "2,000", "5,000", "10,000"], correct: 1, fact: "A single EVM can record a maximum of 2,000 votes." },
+      { q: "How many Lok Sabha constituencies are there in India?", a: ["525", "543", "545", "550"], correct: 1, fact: "Elections are held for 543 seats. Two members were previously nominated, but that provision has ended." },
+      { q: "What is the full form of VVPAT?", a: ["Voter Verified Paper Audit Trail", "Voter Verifiable Paper Account Trail", "Voter Verifiable Paper Audit Trail", "Voter Visual Paper Audit Trail"], correct: 2, fact: "VVPAT allows voters to verify that their vote was cast as intended." },
+      { q: "For how many seconds does the VVPAT slip stay visible?", a: ["3 seconds", "5 seconds", "7 seconds", "10 seconds"], correct: 2, fact: "The slip shows the candidate's name, number, and symbol for 7 seconds." },
+      { q: "What is the term of a Lok Sabha member?", a: ["4 years", "5 years", "6 years", "No fixed term"], correct: 1, fact: "The Lok Sabha has a normal term of 5 years unless dissolved earlier." },
+      { q: "What is the minimum age to contest Lok Sabha elections?", a: ["18 years", "21 years", "25 years", "30 years"], correct: 2, fact: "While voting age is 18, the contesting age is 25 for Lok Sabha." },
+      { q: "Which color ink is used to mark a voter's finger?", a: ["Black", "Blue", "Indelible Purple", "Red"], correct: 2, fact: "Indelible ink contains silver nitrate, which reacts with skin to leave a permanent stain." },
+      { q: "What does NOTA stand for?", a: ["None Of The Above", "No Options To Apply", "New Option To All", "None Of These Applicants"], correct: 0, fact: "NOTA was introduced in 2013 to allow voters to reject all candidates." },
+      { q: "How many National Parties are currently recognized in India (2024)?", a: ["4", "6", "8", "10"], correct: 1, fact: "Currently there are 6 recognized national parties in India." },
+      { q: "What is the maximum campaign spending limit for a Lok Sabha candidate in large states?", a: ["₹50 Lakh", "₹75 Lakh", "₹95 Lakh", "₹1 Crore"], correct: 2, fact: "The limit was increased to ₹95 lakh in 2022." },
+      { q: "Who appoints the Chief Election Commissioner of India?", a: ["The Prime Minister", "The President of India", "The Chief Justice", "Parliament"], correct: 1, fact: "The President appoints the CEC based on recommendations." },
+      { q: "Which state in India has the highest number of Lok Sabha seats?", a: ["Maharashtra", "West Bengal", "Uttar Pradesh", "Bihar"], correct: 2, fact: "Uttar Pradesh has 80 Lok Sabha seats, the most of any state." }
+    ];
+
+    let curQ = 0, score = 0, answered = false;
+    let startTime = Date.now();
+
+    function updateTimer() {
+      const diff = Math.floor((Date.now() - startTime) / 1000);
+      const m = Math.floor(diff / 60).toString().padStart(2,'0');
+      const s = (diff % 60).toString().padStart(2,'0');
+      document.getElementById('time').textContent = `${m}:${s}`;
+    }
+    setInterval(updateTimer, 1000);
+
+    function loadQ() {
+      answered = false;
+      const q = questions[curQ];
+      document.getElementById('qNum').textContent = curQ + 1;
+      document.getElementById('questionText').textContent = q.q;
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('feedback').className = 'feedback';
+      
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+      q.a.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => selectOpt(i);
+        grid.appendChild(btn);
+      });
+    }
+
+    function selectOpt(idx) {
+      if (answered) return;
+      answered = true;
+      const q = questions[curQ];
+      const btns = document.querySelectorAll('.option-btn');
+      const feed = document.getElementById('feedback');
+      
+      if (idx === q.correct) {
+        btns[idx].classList.add('correct');
+        score++;
+        document.getElementById('score').textContent = score;
+        feed.textContent = "Correct! " + q.fact;
+        feed.className = 'feedback correct visible';
+      } else {
+        btns[idx].classList.add('wrong');
+        btns[q.correct].classList.add('correct');
+        feed.textContent = "Incorrect. " + q.fact;
+        feed.className = 'feedback wrong visible';
+      }
+      document.getElementById('nextBtn').style.display = 'block';
+    }
+
+    document.getElementById('nextBtn').onclick = () => {
+      curQ++;
+      if (curQ < questions.length) loadQ();
+      else showResults();
+    };
+
+    function showResults() {
+      document.getElementById('quizScreen').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'block';
+      document.getElementById('finalScore').textContent = `${score}/${questions.length}`;
+      
+      let rank = "Election Novice", txt = "Keep learning about the democratic process!";
+      if (score > 13) { rank = "Election Expert"; txt = "Incredible! You have a profound understanding of Indian democracy."; }
+      else if (score > 9) { rank = "Informed Citizen"; txt = "Great job! You are well-versed in how elections work."; }
+      else if (score > 5) { rank = "Voter-in-Training"; txt = "Good start! There's more to explore in the world of elections."; }
+      
+      document.getElementById('resultRank').textContent = rank;
+      document.getElementById('resultText').textContent = txt;
+    }
+
+    loadQ();
+  </script>
+</body>
+</html>

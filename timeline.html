@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Step-by-step interactive timeline of the Indian general election process.">
+  <title>Election Timeline — Election Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .timeline { position: relative; max-width: 1000px; margin: 40px auto; padding: 20px 0; }
+    .timeline::after { content: ''; position: absolute; width: 4px; background: rgba(255,255,255,0.05); top: 0; bottom: 0; left: 50%; transform: translateX(-50%); border-radius: 2px; }
+    .timeline-item { padding: 10px 40px; position: relative; background: inherit; width: 50%; box-sizing: border-box; }
+    .timeline-item::after { content: ''; position: absolute; width: 24px; height: 24px; right: -12px; background: var(--bg-nav); border: 4px solid var(--accent-blue); top: 15px; border-radius: 50%; z-index: 1; transition: var(--transition-smooth); }
+    .left { left: 0; text-align: right; }
+    .right { left: 50%; }
+    .right::after { left: -12px; }
+    .timeline-content { padding: 24px; background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-lg); position: relative; transition: var(--transition-smooth); cursor: pointer; }
+    .timeline-content:hover { background: var(--bg-card-hover); transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: rgba(255,255,255,0.15); }
+    .timeline-content:hover::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; box-shadow: 0 0 20px var(--accent-blue-glow); opacity: 0.1; }
+    .timeline-item.active::after { background: var(--accent-blue); box-shadow: 0 0 15px var(--accent-blue-glow); }
+    .step-num { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; display: block; }
+    .timeline-content h3 { font-size: 1.15rem; margin-bottom: 10px; }
+    .timeline-content p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+    .details { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; margin-top: 0; }
+    .details.open { max-height: 500px; margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 16px; }
+    .details ul { padding-left: 20px; text-align: left; }
+    .details li { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+    @media (max-width:768px) {
+      .timeline::after { left: 31px; }
+      .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; text-align: left; }
+      .timeline-item::after { left: 19px; }
+      .right { left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <section class="page-hero">
+      <div class="container">
+        <span class="section-label">Visual Journey</span>
+        <h1>📅 <span class="gradient-text">Election Timeline</span></h1>
+        <p>A step-by-step breakdown of how the world's largest democracy votes.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="timeline" id="timeline">
+          <div class="timeline-item left reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 01</span>
+              <h3>Election Announcement</h3>
+              <p>The Election Commission of India (ECI) announces the dates through a press conference.</p>
+              <div class="details">
+                <ul>
+                  <li>Dates for all phases are declared.</li>
+                  <li>Notification is sent to the President/Governor.</li>
+                  <li>Official gazette notification is issued.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item right reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 02</span>
+              <h3>Model Code of Conduct</h3>
+              <p>The MCC comes into effect immediately across the country.</p>
+              <div class="details">
+                <ul>
+                  <li>No new government schemes can be announced.</li>
+                  <li>Restrictions on political speeches and rallies.</li>
+                  <li>Official machinery cannot be used for campaigning.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item left reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 03</span>
+              <h3>Nomination Filing</h3>
+              <p>Candidates file their papers with the Returning Officer of their constituency.</p>
+              <div class="details">
+                <ul>
+                  <li>Security deposit must be made.</li>
+                  <li>Affidavit declaring assets, education, and criminal records.</li>
+                  <li>A formal oath is taken by the candidate.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item right reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 04</span>
+              <h3>Scrutiny & Withdrawal</h3>
+              <p>Election officials check the validity of nominations; candidates can withdraw.</p>
+              <div class="details">
+                <ul>
+                  <li>Returning officer verifies all documents.</li>
+                  <li>Valid nominations are published.</li>
+                  <li>Last date for withdrawal is usually 2 days after scrutiny.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item left reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 05</span>
+              <h3>Campaign Period</h3>
+              <p>Political parties and candidates reach out to voters with their vision.</p>
+              <div class="details">
+                <ul>
+                  <li>Rallies, door-to-door campaigning, and media ads.</li>
+                  <li>Release of Party Manifestos.</li>
+                  <li>Campaigning must stop 48 hours before polling ends.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item right reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 06</span>
+              <h3>Polling Day</h3>
+              <p>Voters visit polling booths to cast their votes using EVMs.</p>
+              <div class="details">
+                <ul>
+                  <li>Polling starts at 7 or 8 AM.</li>
+                  <li>Voters' identities are verified.</li>
+                  <li>Indelible ink is applied to the finger.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item left reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 07</span>
+              <h3>Storage of EVMs</h3>
+              <p>EVMs are sealed and moved to high-security 'Strong Rooms'.</p>
+              <div class="details">
+                <ul>
+                  <li>Political agents verify the sealing.</li>
+                  <li>Strong rooms are guarded 24/7 by security forces.</li>
+                  <li>CCTV monitoring and three-layer security.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item right reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 08</span>
+              <h3>Counting Day</h3>
+              <p>Votes are counted under strict supervision at designated centers.</p>
+              <div class="details">
+                <ul>
+                  <li>Postal ballots are counted first.</li>
+                  <li>EVM counts happen in multiple rounds.</li>
+                  <li>VVPAT slips from random booths are verified.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item left reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 09</span>
+              <h3>Results Declaration</h3>
+              <p>Official results are announced and certificates are issued to winners.</p>
+              <div class="details">
+                <ul>
+                  <li>ECI updates results in real-time online.</li>
+                  <li>Winners are formally notified.</li>
+                  <li>The list of elected members is submitted to the President.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item right reveal">
+            <div class="timeline-content" onclick="toggleDetails(this)">
+              <span class="step-num">Step 10</span>
+              <h3>Government Formation</h3>
+              <p>The majority party or coalition is invited to form the government.</p>
+              <div class="details">
+                <ul>
+                  <li>Party/Coalition with 272+ seats stakes claim.</li>
+                  <li>The Prime Minister is sworn in by the President.</li>
+                  <li>The new House is constituted.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    function toggleDetails(content) {
+      const details = content.querySelector('.details');
+      const item = content.parentElement;
+      const isOpen = details.classList.contains('open');
+      
+      // Close all others
+      document.querySelectorAll('.details').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.timeline-item').forEach(i => i.classList.remove('active'));
+      
+      if (!isOpen) {
+        details.classList.add('open');
+        item.classList.add('active');
+      }
+    }
+
+    // Mark as explored as you scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.8 });
+
+    document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
+  </script>
+</body>
+</html>

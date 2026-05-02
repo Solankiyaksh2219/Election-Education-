@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Election Assistant — Your interactive guide to understanding the election process.">
+  <title>Election Assistant — Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent-blue);
+      margin-bottom: 28px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .hero-badge .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+
+    .hero .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto 36px;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+
+    .hero-float {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-float:nth-child(1) {
+      top: 20%;
+      left: 8%;
+    }
+
+    .hero-float:nth-child(2) {
+      top: 30%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    .hero-float:nth-child(3) {
+      bottom: 20%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+
+    .hero-float:nth-child(4) {
+      bottom: 10%;
+      right: 12%;
+      animation-delay: 3s;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card.blue {
+      --card-accent: var(--gradient-blue-violet);
+      --icon-bg: rgba(59, 130, 246, 0.12);
+    }
+
+    .feature-card.emerald {
+      --card-accent: var(--gradient-emerald-cyan);
+      --icon-bg: rgba(16, 185, 129, 0.12);
+    }
+
+    .feature-card.amber {
+      --card-accent: var(--gradient-amber-rose);
+      --icon-bg: rgba(245, 158, 11, 0.12);
+    }
+
+    .feature-card.violet {
+      --card-accent: linear-gradient(135deg, #8b5cf6, #ec4899);
+      --icon-bg: rgba(139, 92, 246, 0.12);
+    }
+
+    .feature-card.rose {
+      --card-accent: linear-gradient(135deg, #f43f5e, #f59e0b);
+      --icon-bg: rgba(244, 63, 94, 0.12);
+    }
+
+    .stat-card:nth-child(1) {
+      --stat-gradient: var(--gradient-blue-violet);
+    }
+
+    .stat-card:nth-child(2) {
+      --stat-gradient: var(--gradient-emerald-cyan);
+    }
+
+    .stat-card:nth-child(3) {
+      --stat-gradient: var(--gradient-amber-rose);
+    }
+
+    .stat-card:nth-child(4) {
+      --stat-gradient: linear-gradient(135deg, #8b5cf6, #ec4899);
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .how-step {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--bg-glass);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .how-step .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gradient-blue-violet);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 0 auto 16px;
+    }
+
+    .how-step h4 {
+      margin-bottom: 8px;
+    }
+
+    .how-step p {
+      font-size: 0.92rem;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius-xl);
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      max-width: 500px;
+      margin: 0 auto 28px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(1.3);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    }
+
+    @media (max-width:768px) {
+      .hero {
+        padding: 50px 0 40px;
+      }
+
+      .hero-float {
+        display: none;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <section class="hero" id="hero">
+      <div class="hero-float">🗳️</div>
+      <div class="hero-float">🏛️</div>
+      <div class="hero-float">📊</div>
+      <div class="hero-float">🎯</div>
+      <div class="container">
+        <div class="hero-badge"><span class="pulse-dot"></span> Your Complete Election Guide</div>
+        <h1><span class="gradient-text">Understand Elections</span><br>Like Never Before</h1>
+        <p class="hero-subtitle">An interactive assistant that walks you through every step of the election process —
+          from voter registration to results declaration.</p>
+        <div class="hero-actions">
+          <a href="timeline.html" class="btn btn-primary">Explore Timeline →</a>
+          <a href="chatbot.html" class="btn btn-secondary">💬 Ask a Question</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="text-center mb-4 reveal"><span class="section-label">Explore Topics</span>
+          <h2>Everything You Need to Know</h2>
+          <p class="mt-2" style="max-width:550px;margin-left:auto;margin-right:auto;">Navigate through comprehensive
+            guides on every aspect of the democratic process.</p>
+        </div>
+        <div class="features-grid">
+          <a href="timeline.html" class="feature-card blue reveal reveal-delay-1" id="feature-timeline">
+            <div class="card-icon">📅</div>
+            <h3>Election Timeline</h3>
+            <p>Follow the complete election process step-by-step — from announcement to government formation.</p><span
+              class="card-arrow">Explore Timeline →</span>
+          </a>
+          <a href="voting-guide.html" class="feature-card emerald reveal reveal-delay-2" id="feature-voting">
+            <div class="card-icon">🗳️</div>
+            <h3>Voting Guide</h3>
+            <p>Learn about eligibility, registration, voter ID, and what happens on polling day.</p><span
+              class="card-arrow">Read Guide →</span>
+          </a>
+          <a href="candidates.html" class="feature-card amber reveal reveal-delay-3" id="feature-candidates">
+            <div class="card-icon">🏛️</div>
+            <h3>Candidates & Parties</h3>
+            <p>Understand how candidates are nominated, party systems, symbols, and alliances.</p><span
+              class="card-arrow">Learn More →</span>
+          </a>
+          <a href="chatbot.html" class="feature-card violet reveal reveal-delay-4" id="feature-chatbot">
+            <div class="card-icon">🤖</div>
+            <h3>Ask the AI Assistant</h3>
+            <p>Got questions? Our smart chatbot answers all your election-related queries instantly.</p><span
+              class="card-arrow">Start Chatting →</span>
+          </a>
+          <a href="quiz.html" class="feature-card rose reveal reveal-delay-5" id="feature-quiz">
+            <div class="card-icon">📝</div>
+            <h3>Election Quiz</h3>
+            <p>Test your knowledge about the election process with our interactive quiz challenge.</p><span
+              class="card-arrow">Take Quiz →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="stats">
+      <div class="container">
+        <div class="text-center mb-4 reveal"><span class="section-label">Did You Know?</span>
+          <h2>India's Democracy in Numbers</h2>
+        </div>
+        <div class="stats-grid reveal">
+          <div class="stat-card">
+            <div class="stat-number">970M+</div>
+            <div class="stat-label">Registered Voters</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">543</div>
+            <div class="stat-label">Lok Sabha Seats</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">10.5L+</div>
+            <div class="stat-label">Polling Stations</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2600+</div>
+            <div class="stat-label">Political Parties</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="howItWorks">
+      <div class="container">
+        <div class="text-center mb-3 reveal"><span class="section-label">How It Works</span>
+          <h2>Simple Steps to Get Informed</h2>
+        </div>
+        <div class="how-steps">
+          <div class="how-step reveal reveal-delay-1">
+            <div class="step-num">1</div>
+            <h4>Choose a Topic</h4>
+            <p>Pick from Timeline, Voting, Candidates, or Quiz sections.</p>
+          </div>
+          <div class="how-step reveal reveal-delay-2">
+            <div class="step-num">2</div>
+            <h4>Learn Interactively</h4>
+            <p>Read through visual guides, expand details, and explore at your own pace.</p>
+          </div>
+          <div class="how-step reveal reveal-delay-3">
+            <div class="step-num">3</div>
+            <h4>Ask Questions</h4>
+            <p>Use our AI chatbot to get instant answers to any election query.</p>
+          </div>
+          <div class="how-step reveal reveal-delay-4">
+            <div class="step-num">4</div>
+            <h4>Test Your Knowledge</h4>
+            <p>Take the quiz to see how well you understand the election process.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" style="padding:80px 0;">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Ready to Become an <span class="gradient-text">Informed Voter</span>?</h2>
+          <p>Start exploring the complete election process and empower yourself with knowledge.</p>
+          <div class="hero-actions"><a href="timeline.html" class="btn btn-primary">Get Started →</a><a href="quiz.html"
+              class="btn btn-secondary">📝 Take the Quiz</a></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- AI Chat Widget -->
+  <div class="chat-widget">
+    <div class="chat-window" id="aiChatWindow">
+      <div class="chat-win-header">
+        <h4><span>🤖</span> Election AI Assistant</h4>
+        <button class="chat-close" id="closeChat">&times;</button>
+      </div>
+      <div class="chat-messages" id="aiChatMessages">
+        <div class="chat-msg bot">Hi! I'm your AI Election Assistant. Ask me anything about the voting process or
+          timelines!</div>
+      </div>
+      <div class="chat-input-box">
+        <input type="text" id="aiChatInput" placeholder="Ask a question...">
+        <button id="aiSendBtn">➤</button>
+      </div>
+    </div>
+    <button class="chat-toggle" id="toggleChat">💬</button>
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    const chatToggle = document.getElementById('toggleChat');
+    const chatWindow = document.getElementById('aiChatWindow');
+    const chatClose = document.getElementById('closeChat');
+    const aiChatMessages = document.getElementById('aiChatMessages');
+    const aiChatInput = document.getElementById('aiChatInput');
+    const aiSendBtn = document.getElementById('aiSendBtn');
+
+    chatToggle.addEventListener('click', () => {
+      chatWindow.classList.add('open');
+      chatToggle.style.display = 'none';
+    });
+
+    chatClose.addEventListener('click', () => {
+      chatWindow.classList.remove('open');
+      chatToggle.style.display = 'flex';
+    });
+
+    const API_KEY = 'AIzaSyC5HrCA0Fzp1votONW1E20An_XU0UFRbeg';
+    const SYSTEM_PROMPT = "You are a specialized Election Process Assistant for India. Help users understand timelines, voting eligibility, registration steps, EVM/VVPAT, and political parties. Be neutral and concise.";
+
+    async function getAIResponse(userMessage) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{ text: SYSTEM_PROMPT + "\n\nUser Question: " + userMessage }]
+            }]
+          })
+        });
+        const data = await response.json();
+        if (data.candidates && data.candidates[0].content) {
+          return data.candidates[0].content.parts[0].text;
+        } else if (data.error) {
+          return "Error: " + data.error.message;
+        }
+        return "I'm having trouble connecting. Please try again.";
+      } catch (error) {
+        return "Connection Error. Please check your internet.";
+      }
+    }
+
+    function addMessage(text, sender) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `chat-msg ${sender}`;
+      msgDiv.textContent = text;
+      aiChatMessages.appendChild(msgDiv);
+      aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+
+    async function handleSend() {
+      const text = aiChatInput.value.trim();
+      if (!text) return;
+      addMessage(text, 'user');
+      aiChatInput.value = '';
+      const loadingMsg = document.createElement('div');
+      loadingMsg.className = 'chat-msg bot';
+      loadingMsg.textContent = '...';
+      aiChatMessages.appendChild(loadingMsg);
+      const response = await getAIResponse(text);
+      loadingMsg.remove();
+      addMessage(response, 'bot');
+    }
+
+    aiSendBtn.addEventListener('click', handleSend);
+    aiChatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Guide on how to register and vote in Indian elections, including EVM simulation.">
+  <title>Voting Guide — Election Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .guide-tabs { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px; }
+    .tab-btn { padding: 12px 24px; background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-full); color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: var(--transition-fast); }
+    .tab-btn.active { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+    .tab-content { display: none; animation: fadeIn 0.4s ease; }
+    .tab-content.active { display: block; }
+    
+    .guide-card { background: var(--bg-glass); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-lg); padding: 30px; margin-bottom: 24px; }
+    .guide-card h3 { margin-bottom: 16px; color: var(--accent-blue); }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 12px; }
+    .checklist li::before { content: '✓'; color: var(--accent-emerald); font-weight: 800; }
+    
+    .evm-sim { background: #2d3436; border-radius: var(--radius-lg); padding: 30px; max-width: 400px; margin: 40px auto; border: 8px solid #636e72; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .evm-header { text-align: center; margin-bottom: 20px; font-weight: 700; color: #dfe6e9; font-size: 0.8rem; letter-spacing: 0.1em; }
+    .candidate-row { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #dfe6e9; margin-bottom: 8px; border-radius: 4px; color: #2d3436; }
+    .cand-info { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.9rem; }
+    .cand-sym { font-size: 1.4rem; }
+    .vote-btn { width: 30px; height: 30px; background: #0984e3; border: 3px solid #74b9ff; border-radius: 4px; cursor: pointer; transition: 0.1s; }
+    .vote-btn:active { transform: scale(0.9); background: #00cec9; }
+    .evm-light { width: 15px; height: 15px; background: #2d3436; border-radius: 50%; }
+    .evm-light.active { background: #ff7675; box-shadow: 0 0 10px #ff7675; }
+    .sim-status { text-align: center; margin-top: 20px; font-family: monospace; color: #55efc4; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <section class="page-hero">
+      <div class="container">
+        <span class="section-label">Empower Yourself</span>
+        <h1>🗳️ <span class="gradient-text">Voting Guide</span></h1>
+        <p>Everything you need to know to cast your vote correctly and confidently.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="guide-tabs">
+          <button class="tab-btn active" onclick="openTab(event, 'eligibility')">1. Eligibility</button>
+          <button class="tab-btn" onclick="openTab(event, 'registration')">2. Registration</button>
+          <button class="tab-btn" onclick="openTab(event, 'polling')">3. Polling Day</button>
+          <button class="tab-btn" onclick="openTab(event, 'evm')">4. EVM Simulator</button>
+        </div>
+
+        <div id="eligibility" class="tab-content active">
+          <div class="guide-card reveal">
+            <h3>Who can vote?</h3>
+            <p>To be an eligible voter in India, you must meet the following criteria:</p>
+            <ul class="checklist">
+              <li>Must be a citizen of India.</li>
+              <li>Must be at least 18 years of age on the qualifying date (usually January 1st of the year).</li>
+              <li>Must be an ordinary resident in the constituency where registration is sought.</li>
+              <li>Must not be disqualified to be enrolled as a voter.</li>
+              <li>Non-Resident Indians (NRIs) are eligible to vote in their home constituency.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="registration" class="tab-content">
+          <div class="guide-card">
+            <h3>How to Register?</h3>
+            <p>Registration is the first step toward voting. You can register online or offline.</p>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+              <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: var(--radius-md);">
+                <h4>Online Method</h4>
+                <p style="font-size: 0.85rem; margin-top: 8px;">Visit the <strong>National Voter's Service Portal (NVSP)</strong> or use the <strong>Voter Helpline App</strong>. Fill out Form 6 and upload your documents.</p>
+              </div>
+              <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: var(--radius-md);">
+                <h4>Offline Method</h4>
+                <p style="font-size: 0.85rem; margin-top: 8px;">Visit the <strong>Electoral Registration Officer (ERO)</strong> or Booth Level Officer (BLO) in your area. Submit a physical copy of Form 6.</p>
+              </div>
+            </div>
+            <h4 style="margin-top: 24px;">Required Documents:</h4>
+            <ul class="checklist">
+              <li>Recent passport-sized photograph.</li>
+              <li>Age proof (Birth certificate, Passport, or 10th marksheet).</li>
+              <li>Address proof (Aadhaar card, Utility bill, or Bank passbook).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="polling" class="tab-content">
+          <div class="guide-card">
+            <h3>Step-by-Step Polling Day Process</h3>
+            <p>Once you reach the polling station, follow these steps:</p>
+            <ol class="checklist" style="list-style: decimal inside;">
+              <li style="display: list-item;">First polling officer checks your name on the voter list and ID proof.</li>
+              <li style="display: list-item;">Second polling officer marks your finger with indelible ink and gives you a slip.</li>
+              <li style="display: list-item;">Third polling officer takes the slip and ensures you are ready to vote.</li>
+              <li style="display: list-item;">Proceed to the voting compartment and press the button on the EVM.</li>
+              <li style="display: list-item;">Check the VVPAT window for the printed slip to verify your vote.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div id="evm" class="tab-content">
+          <div class="text-center">
+            <h3>Try the EVM Simulator</h3>
+            <p>Experience how an Electronic Voting Machine works. Click a blue button to cast a mock vote.</p>
+          </div>
+          <div class="evm-sim">
+            <div class="evm-header">ELECTRONIC VOTING MACHINE</div>
+            <div class="candidate-row">
+              <div class="cand-info"><span class="cand-sym">🪷</span> Candidate A</div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <div class="evm-light"></div>
+                <button class="vote-btn" onclick="castVote(this)"></button>
+              </div>
+            </div>
+            <div class="candidate-row">
+              <div class="cand-info"><span class="cand-sym">✋</span> Candidate B</div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <div class="evm-light"></div>
+                <button class="vote-btn" onclick="castVote(this)"></button>
+              </div>
+            </div>
+            <div class="candidate-row">
+              <div class="cand-info"><span class="cand-sym">🚲</span> Candidate C</div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <div class="evm-light"></div>
+                <button class="vote-btn" onclick="castVote(this)"></button>
+              </div>
+            </div>
+            <div class="candidate-row">
+              <div class="cand-info"><span class="cand-sym">🏹</span> Candidate D</div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <div class="evm-light"></div>
+                <button class="vote-btn" onclick="castVote(this)"></button>
+              </div>
+            </div>
+            <div class="sim-status" id="evmStatus">READY TO VOTE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    function openTab(evt, tabName) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+
+    function castVote(btn) {
+      const status = document.getElementById('evmStatus');
+      const light = btn.previousElementSibling;
+      
+      // Prevent multiple clicks
+      if (status.textContent !== "READY TO VOTE") return;
+
+      light.classList.add('active');
+      status.textContent = "VOTE RECORDED - BEEP!";
+      status.style.color = "#ff7675";
+
+      setTimeout(() => {
+        light.classList.remove('active');
+        status.textContent = "CHECK VVPAT SLIP (7s)...";
+        status.style.color = "#fdcb6e";
+      }, 1000);
+
+      setTimeout(() => {
+        status.textContent = "READY TO VOTE";
+        status.style.color = "#55efc4";
+      }, 8000);
+    }
+  </script>
+</body>
+</html>
